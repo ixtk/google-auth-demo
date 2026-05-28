@@ -1,7 +1,14 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { sendPasswordResetEmail } from "firebase/auth"
+import { auth } from '../firebase'
 
 function ForgotPassword({ email, setEmail, onBack }) {
+
+  function resetPassword() {
+    sendPasswordResetEmail(auth, email)
+  } 
+
   return (
     <div className="w-full space-y-4 rounded-lg border border-border/60 bg-background/80 p-6 text-left shadow-sm">
       <div className="space-y-2">
@@ -24,7 +31,7 @@ function ForgotPassword({ email, setEmail, onBack }) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Button className="w-full" disabled type="button">
+        <Button className="w-full" onClick={resetPassword} type="button">
           Send reset link
         </Button>
         <Button
